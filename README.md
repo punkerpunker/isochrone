@@ -16,7 +16,7 @@ PgRouting
 ```
 Usage requires OSM Graph downloaded and stored in PostgreSQL
 
-You can find tutorial in this repo named OSMGraph.md
+You can find tutorial in this repo named OSMGraph.md (https://github.com/punkerpunker/geofeat/blob/master/OSMGraph.md)
 
 ### Installing
 
