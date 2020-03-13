@@ -1,2 +1,2 @@
-# geofeat
-Geographical features calculator
+# gfeat
+
