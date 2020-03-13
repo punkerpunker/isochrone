@@ -2,7 +2,7 @@ import getpass
 import numpy as np
 import pandas as pd
 from functools import partial
-from mlbase.db.engine import MLData
+from mlbase.db.engine import DB
 from shapely.geometry import Polygon
 from shapely import wkt
 from multiprocessing import Pool
@@ -33,7 +33,7 @@ def multi_catchment_area(df, long_column, lat_column, sec, type, password=None, 
 
 
 def apply_parallel(df, long_column, lat_column, sec, type, password):
-    db = MLData(password=password)
+    db = DB(password=password)
     for index, row in df.iterrows():
         df.at[index, 'catchment_area'] = get_catchment_area(row[long_column], row[lat_column], sec, type, db)
         db.commit()
