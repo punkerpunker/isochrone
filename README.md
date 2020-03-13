@@ -34,7 +34,7 @@ import geofeat
 
 ### Usage example
 
-```
+```python
 from geofeat import GeoFeatures
 from pyatlasapi.visualising import upload_layer, upload_grid
 
