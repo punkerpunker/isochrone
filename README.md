@@ -36,9 +36,8 @@ import geofeat
 
 ```python
 from geofeat import GeoFeatures
-from pyatlasapi.visualising import upload_layer, upload_grid
 
-city_id = 1
+city_id = 1 # (Ekat)
 
 df = pd.read_sql(' select sc.city_id, sc.square_id, center[0] as gc_lat, center[1] as gc_lng '
                   ' from metadata.no_rivers as nr ' 
