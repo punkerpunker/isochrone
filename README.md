@@ -15,6 +15,7 @@ PostGIS (>2.5)
 PgRouting
 ```
 Usage requires OSM Graph downloaded and stored in PostgreSQL
+
 You can find tutorial in this repo named OSMGraph.md
 
 ### Installing
