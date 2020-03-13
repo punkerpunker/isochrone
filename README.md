@@ -32,6 +32,8 @@ To verify installation try:
 import geofeat
 ```
 
+
+
 ### Usage example
 
 ```python
@@ -73,7 +75,10 @@ for category in yandex_categories:
 
 This project doesn't have any license yet.
 
-
+### Isocrone calculation example
+```sql
+Select catchment_area(37.46, 55.67, 300, 'car')
+```
 
 ![alt text](https://github.com/punkerpunker/geofeat/blob/master/image.png "Isocrone example")
 
