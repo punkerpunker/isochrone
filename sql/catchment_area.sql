@@ -1,4 +1,3 @@
--- FUNCTION: public.catchment_area(double precision, double precision, double precision, text)
 
 -- DROP FUNCTION public.catchment_area(double precision, double precision, double precision, text);
 
