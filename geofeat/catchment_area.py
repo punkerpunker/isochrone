@@ -2,7 +2,7 @@ import getpass
 import numpy as np
 import pandas as pd
 from functools import partial
-from mlbase.db.engine import DB
+from pgbase.db.engine import DB
 from shapely.geometry import Polygon
 from shapely import wkt
 from multiprocessing import Pool
