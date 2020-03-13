@@ -4,9 +4,9 @@ setup(
     name='geofeat',
     packages=find_packages(),
     description='GeoFeatures enterprise edition',
-    version='0.1.1',
+    version='0.1.2',
     url='https://bitbucket.org/marketinglogic/gfeat/src/master/',
     author='punker',
     author_email='gvazhenin@marketing-logic.ru',
-    install_requires=['geopandas','geopy','shapely','mlbase'],
+    install_requires=['geopandas','geopy','shapely','pgbase'],
     )
