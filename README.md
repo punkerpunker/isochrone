@@ -23,7 +23,12 @@ You can find tutorial in this repo named OSMGraph.md (https://github.com/punkerp
 Installation could be as simple as:
 
 ```
-pip3 install dist/geofeat-0.1.1.tar.gz
+python3 setup.py install
+
+psql -d your_db_with_postgis -f sql/catchment_area.sql
+psql -d your_db_with_postgis -f sql/find_path_to_closest.sql
+psql -d your_db_with_postgis -f sql/find_cost_to_closest.sql
+
 ```
 
 To verify installation try: 
