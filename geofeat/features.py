@@ -11,7 +11,7 @@ class GeoFeatures(object):
 
     The explanations and documentation can be founded in Confluence
     """
-    def __init__(self, db, df, long_column, lat_column):
+    def __init__(self, db, df, long_column, lat_column, id_column='sys_ind'):
         """
         Note:
             Cache is the system parameter and it shouldn't be used by users.
@@ -31,9 +31,13 @@ class GeoFeatures(object):
         self.lat_column = lat_column
         self.long_column = long_column
         self.db = db
-        self.df = df
+        self.id_column = id_column
+        self.df = self.increment(df)
         # - Cache variables
         self.cache = (0, '')
+
+    def increment(self, df):
+        return df.reset_index().rename(columns={'index': self.id_column})
 
     def __repr__(self):
         return str(self.df)
@@ -66,7 +70,7 @@ class GeoFeatures(object):
     def distance_to_closest(self, point_query, column_name='distance', limit_meters=10000):
         self._put_target()
         self._put_points(point_query)
-        query = " SELECT  targets.%s, targets.%s, poi.dist::integer as %s " \
+        query = " SELECT targets.%s, targets.%s, targets.%s, poi.dist::integer as %s " \
                 " FROM temporary.distance_to_closest___target as targets " \
                 " JOIN LATERAL " \
                 "   (SELECT points.*, " \
@@ -74,12 +78,13 @@ class GeoFeatures(object):
                 "   FROM temporary.distance_to_closest___points as points " \
                 "   WHERE ST_DWithin(points.geom, targets.geom, %s) " \
                 "ORDER BY points.geom <-> targets.geom LIMIT 1) " \
-                "AS poi on true;" % (self.long_column, self.lat_column, column_name, limit_meters)
+                "AS poi on true;" % (self.id_column, self.long_column, self.lat_column, column_name, limit_meters)
+        
         distances = pd.read_sql(query, self.db.engine)
         distances.drop_duplicates([self.long_column, self.lat_column], inplace=True)
         if column_name in self.df:
             self.df.drop(column_name, axis=1, inplace=True)
-        self.df = self.df.merge(distances, on=[self.long_column, self.lat_column], how='left')
+        self.df = self.df.merge(distances[[self.id_column, column_name]], on=self.id_column, how='left')
 
     def _put_points(self, point_query):
         points_df = pd.read_sql(point_query, self.db.engine)
@@ -96,7 +101,7 @@ class GeoFeatures(object):
         self.db.commit()
 
     def _put_target(self):
-        self.df[[self.long_column, self.lat_column]].to_sql('distance_to_closest___target', self.db.engine,
+        self.df[[self.id_column, self.long_column, self.lat_column]].to_sql('distance_to_closest___target', self.db.engine,
                                                             index=False, if_exists='replace', schema='temporary')
         self.db.cur.execute('alter table temporary.distance_to_closest___target '
                             'add column geom geography')
