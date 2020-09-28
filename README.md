@@ -51,12 +51,7 @@ from geofeat import GeoFeatures
 
 city_id = 1 # (Ekat)
 
-df = pd.read_sql(' select sc.city_id, sc.square_id, center[0] as gc_lat, center[1] as gc_lng '
-                  ' from metadata.no_rivers as nr ' 
-                  ' left join metadata.squares_coordinates as sc ' 
-                      ' on sc.city_id = nr.city_id_dup and nr.square_id_dup = sc.square_id'
-                  ' left join metadata.cities_grids as cg on cg.city_id = smp.city_id'
-                  ' where nr.city_id_dup = %s' % city_id, db.engine)
+df = pd.read_sql(' select gc_lat, gc_lng from points ', db.engine)
 
 gdf = GeoFeatures(db, df, 'gc_lng', 'gc_lat']
 yandex_categories = ['Ломбард', 'Рынок', 
@@ -66,15 +61,15 @@ yandex_categories = ['Ломбард', 'Рынок',
 for zone in ['ped', 'car']:
     for sec in [300, 600, 1200]:
         print(sec)
-        gdf.aggregate_in_isochrone('select longitude, latitude from wikiroutes.stop where longitude is not null', sec=sec, mode=zone, column_name='stops_'+str(zone)+'_'+str(sec))
-        gdf.aggregate_in_isochrone('select lng, lat, flat_count from flats.flats where lat is not null', sec=sec, mode=zone, column_name='flats_'+str(zone)+'_'+str(sec))
+        gdf.aggregate_in_isochrone('select longitude, latitude from stops where longitude is not null', sec=sec, mode=zone, column_name='stops_'+str(zone)+'_'+str(sec))
+        gdf.aggregate_in_isochrone('select lng, lat, flat_count from flats where lat is not null', sec=sec, mode=zone, column_name='flats_'+str(zone)+'_'+str(sec))
         for category in ['Лотереи']:
             print(category)
-            gdf.aggregate_in_isochrone('select gc_lng, gc_lat from punker.organizations_short where name = \'%s\' and gc_lat is not null' % category, sec=sec, mode=zone, column_name=category + '_' + str(zone) + '_' + str(sec))
+            gdf.aggregate_in_isochrone('select gc_lng, gc_lat from organizations where name = \'%s\' and gc_lat is not null' % category, sec=sec, mode=zone, column_name=category + '_' + str(zone) + '_' + str(sec))
 
 for category in yandex_categories:
     print(category)
-    gdf.distance_to_closest('select gc_lng, gc_lat from punker.organizations_short where name = \'%s\' and gc_lat is not null' % category, column_name='"closest_'+category+'"', limit_meters=100000)
+    gdf.distance_to_closest('select gc_lng, gc_lat from organizations where name = \'%s\' and gc_lat is not null' % category, column_name='"closest_'+category+'"', limit_meters=100000)
 ```
 
 ## Authors
