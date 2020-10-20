@@ -16,6 +16,6 @@ osmosis --read-pbf file="/home/punker/data/osm/northwestern-fed-district-latest.
 
 Нужно в терминале сказать: 
 ```
-osm2pgrouting --f /home/punker/data/osm/RU-VOL.osm --conf /home/punker/mlogic/core/gis/osm/mapconfig.xml --dbname mldata --prefix rt_ --username marketinglogic --password tttBBB777
+osm2pgrouting --f /home/punker/data/osm/RU-VOL.osm --conf /home/punker/mlogic/core/gis/osm/mapconfig.xml --dbname db --prefix rt_ --username user --password password
 ```
 (Файл mapconfig.xml лежит в репозитории тут и его лучше не менять)
