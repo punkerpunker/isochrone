@@ -37,7 +37,8 @@ class GeoFeatures(object):
         self.cache = (0, '')
 
     def increment(self, df):
-        return df.reset_index().rename(columns={'index': self.id_column})
+        index = 'index' if df.index.name is None else df.index.name
+        return df.reset_index().rename(columns={index: self.id_column})
 
     def __repr__(self):
         return str(self.df)
