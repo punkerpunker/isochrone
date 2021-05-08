@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 containers/pgrouting/data
-containers/pgrouting/osm
+containers/pgrouting/osm/*.osm.pbf
 containers/pgadmin
