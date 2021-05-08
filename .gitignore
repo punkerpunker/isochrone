@@ -130,4 +130,5 @@ dmypy.json
 
 containers/pgrouting/data
 containers/pgrouting/osm/*.osm.pbf
+!containers/pgrouting/osm/rutland-latest.osm.pbf
 containers/pgadmin
