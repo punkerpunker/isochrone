@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+containers/pgrouting/data
+containers/pgrouting/osm
+containers/pgadmin
