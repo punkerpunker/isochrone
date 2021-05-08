@@ -80,7 +80,7 @@ class GeoFeatures(object):
                 "   WHERE ST_DWithin(points.geom, targets.geom, %s) " \
                 "ORDER BY points.geom <-> targets.geom LIMIT 1) " \
                 "AS poi on true;" % (self.id_column, self.long_column, self.lat_column, column_name, limit_meters)
-        
+
         distances = pd.read_sql(query, self.db.engine)
         distances.drop_duplicates([self.long_column, self.lat_column], inplace=True)
         if column_name in self.df:
@@ -146,7 +146,7 @@ class GeoFeatures(object):
     def shrink_catchment_area_nulls(self):
         self.df = self.df[~self.df['catchment_area'].isnull()]
 
-    def aggregate_in_isochrone(self, points_query, sec=600, mode='ped', column_name='count', shrink_bad=False):
+    def aggregate_in_isochrone(self, points_query, sec=600, n_cores=15, mode='ped', column_name='count', shrink_bad=False):
         """Aggregate objects in transport or pedestrian accessibility zone around points
 
         Function uses core.gis.multi_catchment_area function which in turn uses catchment_area
@@ -166,9 +166,12 @@ class GeoFeatures(object):
             pass
         else:
             self.df = multi_catchment_area(self.df,
-                                           long_column=self.long_column, lat_column=self.lat_column,
-                                           sec=sec, type=mode,
-                                           password=self.db.password)
+                                           long_column=self.long_column,
+                                           lat_column=self.lat_column,
+                                           sec=sec,
+                                           type=mode,
+                                           password=self.db.password,
+                                           n_cores=n_cores))
             self.cache = (sec, mode)
             # Периодически, почему-то возникают NULL'ы в catchment_area. Эта функция их обрабатывает
             self.recalc_catchment_area_nulls(sec, mode)
