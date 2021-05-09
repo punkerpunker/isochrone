@@ -1,0 +1,39 @@
+openapi: 3.0.0
+info:
+  title: Isochrone
+  description: https://github.com/punkerpunker/isochrone-api
+  version: 0.0.1
+
+paths:
+  /isochrone: 
+    get: 
+      operationId: app.isochrone
+      parameters: 
+        - name: X 
+          description: Longitude
+          in: query
+          schema:
+            type: number
+          required: true
+        - name: Y
+          description: Latitude
+          in: query
+          schema:
+            type: number
+          required: true
+        - name: sec
+          description: Seconds
+          in: query
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Isochrone WKT polygon
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  polygon:
+                    type: string

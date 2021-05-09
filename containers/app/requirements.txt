@@ -1,1 +1,4 @@
-shapely==1.7.1
+shapely==1.7.
+sqlalchemy==1.3.22
+connexion==2.7.0
+psycopg2-binary==2.8.6

@@ -13,7 +13,7 @@ services:
       - pgrouting-front
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
+      interval: 20s
       timeout: 5s
       retries: 5
 
@@ -40,12 +40,14 @@ services:
     container_name: app
     environment:
       - POSTGRES_PASSWORD=tttBBB777
+    ports: 
+      - 1769:1769
     build:
       context: containers/app
     depends_on: 
       pgrouting:
         condition: service_healthy
-    command: "/usr/bin/python3 load.py"
+    command: "/usr/bin/python3 app.py"
     networks:
       - pgrouting-front
 
