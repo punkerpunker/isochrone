@@ -17,25 +17,6 @@ services:
       timeout: 5s
       retries: 5
 
-  pgadmin:
-    container_name: pgrouting-pgadmin
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: vazheningleb@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: tttBBB777
-      PGADMIN_LISTEN_PORT: 5050
-      PGADMIN_LISTEN_ADDRESS: 0.0.0.0
-    volumes:
-      - ./containers/pgadmin/data/:/var/lib/pgadmin
-    ports:
-      - "5051:5050"
-    networks:
-      - pgrouting-front
-    restart: unless-stopped
-    depends_on:
-      pgrouting:
-        condition: service_healthy
-
   app:
     container_name: app
     environment:
