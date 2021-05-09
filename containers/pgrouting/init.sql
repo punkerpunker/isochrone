@@ -37,27 +37,25 @@ EXECUTE 'SELECT id
         LIMIT 1' into node_id;
 
 if node_id > -1 then
-        statement = 'CREATE TEMP TABLE "'||tab_res_lines||'" AS (SELECT gid as id, the_geom as geom, node from '||tab_network||'
-      join (SELECT node,edge FROM pgr_drivingDistance(
-        ''SELECT gid as id, source, target, cost, reverse_cost FROM (SELECT gid, source, target, cost, reverse_cost, the_geom
-      FROM '||tab_network||'
-      WHERE ST_contains(ST_Transform(ST_Buffer(ST_Transform(ST_SetSRID(ST_MakePoint('||x||','||y||'),4326), 3395),
-        '||cost||'*'||speed||'*1000.0/3600.0*1.3, 16), 4326), the_geom)) as preSelection'',
-        '||node_id||', '||cost||', false
-      )) d on '||tab_network||'.gid=d.edge);';
+        statement = 'CREATE TEMP TABLE "'||tab_res_lines||'" AS (
+        SELECT gid as id, the_geom as geom, node from '||tab_network||'
+        join (SELECT node,edge FROM pgr_drivingDistance(
+            ''SELECT gid as id, source, target, cost, reverse_cost 
+              FROM (
+                SELECT gid, source, target, cost, reverse_cost, the_geom
+                FROM '||tab_network||'
+                WHERE ST_contains(ST_Transform(ST_Buffer(ST_Transform(ST_SetSRID(ST_MakePoint('||x||','||y||'),4326), 3395),
+                      '||cost||'*'||speed||'*1000.0/3600.0*1.3, 16), 4326), the_geom)) as preSelection'', 
+              '||node_id||', '||cost||', false)) d 
+              on '||tab_network||'.gid=d.edge);';
       EXECUTE statement;
-      statement = 'SELECT ST_ConcaveHull(ST_Collect(the_geom), 0.7)
-         		   FROM '||tab_network||'_vertices_pgr v join "'||tab_res_lines||'" l on v.id = l.node;';
+      statement = 'SELECT ST_ConcaveHull(ST_Collect(the_geom), 0.7) 
+                   FROM '||tab_network||'_vertices_pgr v 
+                   join "'||tab_res_lines||'" l on v.id = l.node;';
       BEGIN
-            EXECUTE statement into res_area;
-            -- Иногда не можем построить зону, если так - строим круг
---             exception when others then
---             radius = speed::float * cost*10/36;
---             statement = 'select ST_Buffer(ST_SetSRID(ST_MakePoint('||x||','||y||'),4326)::geography, '|| radius::text ||')';
---             EXECUTE statement into res_area;
-                
+            EXECUTE statement into res_area;       
       END;
-      -- Иногда возвращает пустую геометрию, если так - строим круг
+      -- If no graph - returns circle buffer
       IF res_area is not null then
         return res_area;
       else
