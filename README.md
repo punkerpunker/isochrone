@@ -1,11 +1,11 @@
-# Isochrone
-Isochrone API that provides a functionality of calculating isochrones (walking areas).
-
 ![Issues](https://img.shields.io/github/issues/punkerpunker/geofeat)
 ![Forks](https://img.shields.io/github/forks/punkerpunker/geofeat)
 ![Stats](https://img.shields.io/github/stars/punkerpunker/geofeat)
 ![License](https://img.shields.io/github/license/punkerpunker/geofeat)
 ![Contributors](https://img.shields.io/github/contributors/punkerpunker/geofeat)
+
+# Isochrone
+Isochrone API that provides a functionality of calculating isochrones (walking areas).
 
 # Install:
 
