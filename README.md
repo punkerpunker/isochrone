@@ -11,7 +11,7 @@ Isochrone API that provides a functionality of calculating isochrones (walking a
 
 1. Download **graph** for regions where you need to calculate isochrones. Download `.osm.pbf` files from http://download.geofabrik.de/. 
 2. Put your `.osm.pbf`. files under `containers/app/osm/pbf` directory (currently there is `rutland-latest.osm.pbf` for illustration reasons, remove it if you don't need this area).
-3. Run `docker-compose up --build`
+3. Run `docker-compose up --build` ([Hints](https://phoenixnap.com/kb/install-docker-compose-on-ubuntu-20-04) on how-to install `docker` and `docker-compose`)  
 
 Then, you'll need to wait until **graph** is uploaded to DB. During upload, you might see messages like this `docker-compose logs app`:
 
