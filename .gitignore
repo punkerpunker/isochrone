@@ -127,3 +127,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+containers/pgrouting/data
+containers/app/osm/pbf/*.osm.pbf
+!containers/app/osm/pbf/rutland-latest.osm.pbf
+containers/pgadmin
