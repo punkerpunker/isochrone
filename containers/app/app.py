@@ -46,9 +46,9 @@ def isochrone(X, Y, sec):
 
 
 if __name__ == "__main__":
-    Loader.create_dirs(CONVERTED_DIR)
-    Loader.convert(RAW_DIR, CONVERTED_DIR)
-    Loader.load(CONVERTED_DIR, MAPCONFIG_PATH, DB_PASSWORD)
+    Loader.create_directory(OSM_DIR)
+    Loader.convert_pbf_to_osm(PBF_DIR, OSM_DIR)
+    Loader.load_osm_files_to_db(OSM_DIR, MAPCONFIG_PATH, DB_PASSWORD)
 
     app = connexion.App(__name__, specification_dir='./')
     app.add_api('swagger.yaml')
