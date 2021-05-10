@@ -44,7 +44,6 @@ In order to calculate isochrone you need to pass 3 query `parameters` to API:
 ## Example:
 ```python
 import requests
-import shapely
 
 url = 'http://localhost:1769/isochrone?'
 
