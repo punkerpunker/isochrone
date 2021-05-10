@@ -7,8 +7,8 @@ from shapely import wkt
 
 
 DB_PASSWORD = os.environ['POSTGRES_PASSWORD']
-RAW_DIR = '/osm/pbf'
-CONVERTED_DIR = '/osm/pbf/converted'
+PBF_DIR = '/osm/pbf'
+OSM_DIR = '/osm/pbf/converted'
 MAPCONFIG_PATH = '/osm/mapconfig.xml'
 engine = sqlalchemy.create_engine(f'postgresql+psycopg2://postgres:{DB_PASSWORD}@pgrouting/postgres')
 
