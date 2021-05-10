@@ -15,9 +15,9 @@ engine = sqlalchemy.create_engine(f'postgresql+psycopg2://postgres:{DB_PASSWORD}
 
 class Loader:
     @staticmethod
-    def create_dirs(directory):
-        if not os.path.exists(directory):
-            os.makedirs(directory)
+    def create_directory(path_to_directory: str):
+        if not os.path.exists(path_to_directory):
+            os.makedirs(path_to_directory)
 
     @staticmethod
     def convert_pbf_to_osm(pbf_file_directory: str, osm_file_directory: str):
