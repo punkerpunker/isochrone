@@ -29,9 +29,9 @@ class Loader:
                 subprocess.check_call([f'osmconvert {path} --drop-author --drop-version --out-osm -o={new_path}'], shell=True)
 
     @staticmethod
-    def load(converted_directory, mapconfig_path, password):
-        for file in os.listdir(converted_directory):
-            path = os.path.join(converted_directory, file)
+    def load_osm_files_to_db(osm_file_directory: str, mapconfig_path: str, password: str):
+        for file in os.listdir(osm_file_directory):
+            path = os.path.join(osm_file_directory, file)
             subprocess.check_call([f'osm2pgrouting --host pgrouting --f {path} --conf {mapconfig_path} --dbname postgres '
                                    f'--username postgres --password {password}'], shell=True)
 
