@@ -45,8 +45,6 @@ In order to calculate isochrone you need to pass 3 query `parameters` to API:
 ```python
 import requests
 import shapely
-from shapely.geometry import Polygon
-from shapely import wkt
 
 url = 'http://localhost:1769/isochrone?'
 
