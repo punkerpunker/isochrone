@@ -20,12 +20,12 @@ class Loader:
             os.makedirs(directory)
 
     @staticmethod
-    def convert(raw_directory, converted_directory):
-        for file in os.listdir(raw_directory):
+    def convert_pbf_to_osm(pbf_file_directory: str, osm_file_directory: str):
+        for file in os.listdir(pbf_file_directory):
             if file.endswith(".osm.pbf"):
-                path = os.path.join(raw_directory, file)
+                path = os.path.join(pbf_file_directory, file)
                 osm_name = file.rstrip('.pbf')
-                new_path = os.path.join(converted_directory, osm_name)
+                new_path = os.path.join(osm_file_directory, osm_name)
                 subprocess.check_call([f'osmconvert {path} --drop-author --drop-version --out-osm -o={new_path}'], shell=True)
 
     @staticmethod
@@ -53,4 +53,3 @@ if __name__ == "__main__":
     app = connexion.App(__name__, specification_dir='./')
     app.add_api('swagger.yaml')
     app.run(port=1769)
-
