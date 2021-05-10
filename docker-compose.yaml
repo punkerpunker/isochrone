@@ -8,7 +8,7 @@ services:
       - ./containers/pgrouting/data:/var/lib/postgresql/data
       - ./containers/pgrouting/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
-      - POSTGRES_PASSWORD=tttBBB777
+      - POSTGRES_PASSWORD=password
     networks:
       - pgrouting-front
     healthcheck:
@@ -20,7 +20,7 @@ services:
   app:
     container_name: app
     environment:
-      - POSTGRES_PASSWORD=tttBBB777
+      - POSTGRES_PASSWORD=password
     ports: 
       - 1769:1769
     build:
