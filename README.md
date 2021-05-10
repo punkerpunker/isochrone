@@ -50,7 +50,7 @@ from shapely import wkt
 
 url = 'http://localhost:1769/isochrone?'
 
-params = {'X': -0.1946611966680779, 'Y': 51.46534965585685, 'sec': 100}
+params = {'X': -0.1946611966680779, 'Y': 51.46534965585685, 'sec': 300}
 resp = requests.get(url, params=params)
 
 print(resp.json())
