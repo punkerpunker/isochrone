@@ -1,8 +1,8 @@
-![Issues](https://img.shields.io/github/issues/punkerpunker/geofeat)
-![Forks](https://img.shields.io/github/forks/punkerpunker/geofeat)
-![Stats](https://img.shields.io/github/stars/punkerpunker/geofeat)
-![License](https://img.shields.io/github/license/punkerpunker/geofeat)
-![Contributors](https://img.shields.io/github/contributors/punkerpunker/geofeat)
+![Issues](https://img.shields.io/github/issues/punkerpunker/isochrone)
+![Forks](https://img.shields.io/github/forks/punkerpunker/isochrone)
+![Stats](https://img.shields.io/github/stars/punkerpunker/isochrone)
+![License](https://img.shields.io/github/license/punkerpunker/isochrone)
+![Contributors](https://img.shields.io/github/contributors/punkerpunker/isochrone)
 
 # Isochrone
 Isochrone API that provides a functionality of calculating isochrones (walking areas).
